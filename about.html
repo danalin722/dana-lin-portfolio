@@ -43,10 +43,10 @@
   :root{ --side-pad:56px; }
   .wrap{ max-width:1320px; margin:0 auto; padding:0 var(--side-pad); }
 
-  /* ============ NAV — floating glass pill ============ */
+  /* ============ NAV — floating glass pill that expands into the mobile menu itself ============ */
   header{
     position:fixed; top:20px; left:var(--side-pad); right:var(--side-pad); margin:0 auto; max-width:1320px; z-index:1000;
-    border-radius:999px;
+    height:auto; border-radius:999px; overflow:hidden;
     background:linear-gradient(165deg, rgba(255,255,255,0.78) 0%, rgba(255,255,255,0.4) 45%, rgba(255,255,255,0.55) 100%);
     border:1px solid rgba(24,24,24,0.12);
     box-shadow:
@@ -56,10 +56,12 @@
       inset 0 12px 18px -10px rgba(24,24,24,0.06);
     backdrop-filter:blur(16px) saturate(140%);
     -webkit-backdrop-filter:blur(16px) saturate(140%);
-    transition:opacity .15s ease;
+    display:flex; flex-direction:column;
+    transition:
+      top .5s cubic-bezier(.4,0,.2,1), left .5s cubic-bezier(.4,0,.2,1), right .5s cubic-bezier(.4,0,.2,1),
+      border-radius .5s cubic-bezier(.4,0,.2,1), height .5s cubic-bezier(.4,0,.2,1), max-width .5s cubic-bezier(.4,0,.2,1);
   }
-  body.menu-open header{ opacity:0; pointer-events:none; }
-  nav{ padding:14px 28px; display:flex; justify-content:space-between; align-items:center; }
+  nav{ padding:14px 28px; display:flex; justify-content:space-between; align-items:center; flex-shrink:0; }
   /* ============ LARGE DESKTOP (1920px+): fixed 320px margins everywhere ============ */
   @media (min-width:1920px){
     :root{ --side-pad:320px; }
@@ -74,42 +76,48 @@
 
   .nav-toggle{ display:none; align-items:center; justify-content:center; background:none; border:none; padding:8px; color:var(--ink); cursor:pointer; }
 
-  /* ============ MOBILE MENU — the nav pill expands downward to fill the page ============ */
-  .mobile-menu{
-    position:fixed; top:20px; left:var(--side-pad); right:var(--side-pad); margin:0 auto; max-width:1320px;
-    height:58px; z-index:2000; overflow:hidden;
-    border-radius:999px;
-    background:linear-gradient(165deg, rgba(255,255,255,0.78) 0%, rgba(255,255,255,0.4) 45%, rgba(255,255,255,0.55) 100%);
-    border:1px solid rgba(24,24,24,0.12);
-    box-shadow:
-      0 10px 30px rgba(24,24,24,0.10),
-      inset 0 1px 1px rgba(255,255,255,1),
-      inset 0 -10px 16px rgba(255,255,255,0.45),
-      inset 0 12px 18px -10px rgba(24,24,24,0.06);
-    backdrop-filter:blur(20px) saturate(150%);
-    -webkit-backdrop-filter:blur(20px) saturate(150%);
-    display:flex; flex-direction:column;
-    visibility:hidden; pointer-events:none;
-    transition:height .5s cubic-bezier(.4,0,.2,1), border-radius .5s cubic-bezier(.4,0,.2,1);
+  /* Hamburger icon — 3 bars that morph into an X */
+  .hamburger-icon{ position:relative; width:20px; height:14px; }
+  .hamburger-icon .bar{
+    position:absolute; left:0; width:100%; height:2px; border-radius:2px; background:currentColor;
+    transition:transform .35s cubic-bezier(.4,0,.2,1), opacity .35s ease, top .35s cubic-bezier(.4,0,.2,1);
   }
-  .mobile-menu.open{
-    height:calc(100vh - 40px); border-radius:28px;
-    visibility:visible; pointer-events:auto;
+  .hamburger-icon .bar1{ top:0; }
+  .hamburger-icon .bar2{ top:6px; }
+  .hamburger-icon .bar3{ top:12px; }
+  header.is-open .hamburger-icon .bar1{ top:6px; transform:rotate(45deg); }
+  header.is-open .hamburger-icon .bar2{ opacity:0; }
+  header.is-open .hamburger-icon .bar3{ top:6px; transform:rotate(-45deg); }
+
+  /* The expanded full-screen menu links — live inside the header, fade in once it's mostly expanded.
+     Collapsed by default to flex:0/min-height:0 so this hidden content reserves NO layout space —
+     otherwise the closed header inflates to fit it even while invisible. */
+  .mobile-nav-links{
+    flex:0 0 0; min-height:0; overflow:hidden;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:32px;
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity .25s ease;
   }
-  .mobile-menu-top{ display:flex; justify-content:space-between; align-items:center; padding:14px 28px; flex-shrink:0; }
-  .mobile-menu-close{ display:flex; align-items:center; justify-content:center; background:none; border:none; padding:8px; color:var(--ink); cursor:pointer; }
-  .mobile-menu-links{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:32px; }
-  .mobile-menu-links a{
+  .mobile-nav-links a{
     font-family:'Newsreader',serif; font-weight:300; font-size:24px; line-height:29px; letter-spacing:0; color:var(--ink);
   }
-  .mobile-menu-links a.active{ color:#0A6BCC; text-decoration:underline; text-underline-offset:4px; }
-  /* Content fades in only once the pill has mostly expanded, so the animated corner radius never clips the logo/links */
-  .mobile-menu-top, .mobile-menu-links{ opacity:0; transition:opacity .2s ease; }
-  .mobile-menu.open .mobile-menu-top, .mobile-menu.open .mobile-menu-links{ opacity:1; transition:opacity .25s ease .25s; }
+  .mobile-nav-links a.active{ color:#0A6BCC; text-decoration:underline; text-underline-offset:4px; }
+  header.is-open .mobile-nav-links{
+    flex:1; overflow:visible;
+    opacity:1; visibility:visible; pointer-events:auto; transition:opacity .25s ease .25s;
+  }
 
   @media (max-width:1024px){
     .nav-links{ display:none; }
     .nav-toggle{ display:flex; }
+
+    /* Drop the floating pill on mobile/tablet entirely — plain full-width bar that expands straight up */
+    header{
+      top:0; left:0; right:0; margin:0; max-width:none; width:100%;
+      border-radius:0; border-left:none; border-right:none; border-top:none;
+      height:auto;
+    }
+    header.is-open{ height:100vh; }
   }
 
   /* ============ ABOUT TOP: heading + bio + featured photo ============ */
@@ -140,13 +148,12 @@
     .mosaic-grid .mg-1,.mosaic-grid .mg-2,.mosaic-grid .mg-3,.mosaic-grid .mg-4,.mosaic-grid .mg-5{ grid-column:auto; grid-row:auto; }
   }
 
-  footer{ border-top:1px solid var(--line); padding:36px 0; }
-  footer .wrap{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+  footer{ border-top:1px solid var(--line); height:80px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
   footer .socials{ display:flex; gap:24px; }
   footer .socials a{ display:inline-flex; align-items:center; color:var(--ink-soft); transition:color .3s; }
   footer .socials a:hover{ color:var(--accent); }
   footer .socials a svg{ width:20px; height:20px; }
-  footer .copy{ color:var(--ink-faint); font-size:14px; line-height:19px; }
+  footer .copy{ color:#181818; font-size:14px; line-height:19px; }
 
   /* ============ MOBILE (single breakpoint — keeps all margins/type in sync) ============ */
   @media (max-width:680px){
@@ -162,15 +169,23 @@
     .about-top{ padding:140px 0 60px; }
     .about-bio{ flex:1 1 100%; }
 
-    header{ top:16px; }
-    .mobile-menu{ top:16px; }
-    .mobile-menu.open{ height:calc(100vh - 32px); }
+    footer{
+      display:flex !important;
+      flex-direction:column !important;
+      align-items:flex-start !important;
+      justify-content:center !important;
+      padding-top:16px !important;
+      padding-bottom:16px !important;
+      gap:16px !important;
+      height:auto !important;
+      min-height:max-content !important;
+    }
   }
 </style>
 </head>
 <body>
 
-<header>
+<header id="siteHeader">
   <nav>
     <a href="index.html" class="logo"><img src="images/logo.svg" alt="Dana Lin" width="103" height="21"></a>
     <div class="nav-links">
@@ -179,24 +194,19 @@
       <a href="resume.pdf">Resume</a>
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 6H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 18H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="hamburger-icon">
+        <span class="bar bar1"></span>
+        <span class="bar bar2"></span>
+        <span class="bar bar3"></span>
+      </span>
     </button>
   </nav>
-</header>
-
-<div class="mobile-menu" id="mobileMenu">
-  <div class="mobile-menu-top">
-    <a href="index.html" class="logo"><img src="images/logo.svg" alt="Dana Lin" width="103" height="21"></a>
-    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="M6 6l12 12"></path></svg>
-    </button>
-  </div>
-  <div class="mobile-menu-links">
+  <div class="mobile-nav-links">
     <a href="index.html">Work</a>
     <a href="about.html" class="active">About</a>
     <a href="resume.pdf">Resume</a>
   </div>
-</div>
+</header>
 
 <main>
   <section class="about-top wrap">
@@ -225,47 +235,45 @@
 </main>
 
 <footer class="wrap">
-  <div class="copy">© 2026 Dana Lin. All rights reserved.</div>
   <div class="socials">
-    <a href="https://linkedin.com/in/dana-lin22/" target="_blank" rel="noopener" aria-label="LinkedIn">
+    <a href="https://www.linkedin.com/in/dana-lin22" target="_blank" rel="noopener" aria-label="LinkedIn">
       <svg width="20" height="20" viewBox="0 0 16 16" fill="none"><g clip-path="url(#footer-li-clip-about)"><path d="M5.99998 14.6666H9.99998C13.3333 14.6666 14.6666 13.3333 14.6666 9.99998V5.99998C14.6666 2.66665 13.3333 1.33331 9.99998 1.33331H5.99998C2.66665 1.33331 1.33331 2.66665 1.33331 5.99998V9.99998C1.33331 13.3333 2.66665 14.6666 5.99998 14.6666Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.29297 6.2088V12.2234H4.07812V6.2088H5.29297ZM9.48535 5.98029C10.9567 5.98029 12.1503 7.17295 12.1504 8.64435V12.2234H10.9355V8.64435C10.9355 7.8436 10.2861 7.19415 9.48535 7.19415C8.68475 7.19435 8.03621 7.84372 8.03613 8.64435V12.2234H6.82129V6.2088H8.03613V6.50372C8.43824 6.18359 8.92793 5.98037 9.48535 5.98029ZM4.68555 3.92267C5.14704 3.92267 5.52139 4.29713 5.52148 4.75861C5.52148 5.22016 5.14709 5.59454 4.68555 5.59454C4.22407 5.59445 3.84961 5.2201 3.84961 4.75861C3.8497 4.29719 4.22413 3.92276 4.68555 3.92267Z" fill="currentColor" stroke="currentColor" stroke-width="0.3"/></g><defs><clipPath id="footer-li-clip-about"><rect width="16" height="16" fill="white"/></clipPath></defs></svg>
     </a>
     <a href="mailto:danalin722@gmail.com" aria-label="Email">
       <svg width="20" height="20" viewBox="0 0 16 16" fill="none"><path d="M11.3333 13.6666H4.66665C2.66665 13.6666 1.33331 12.6666 1.33331 10.3333V5.66665C1.33331 3.33331 2.66665 2.33331 4.66665 2.33331H11.3333C13.3333 2.33331 14.6666 3.33331 14.6666 5.66665V10.3333C14.6666 12.6666 13.3333 13.6666 11.3333 13.6666Z" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M11.3334 6L9.24669 7.66667C8.56002 8.21333 7.43335 8.21333 6.74669 7.66667L4.66669 6" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
   </div>
+  <div class="copy">© 2026 Dana Lin. All rights reserved.</div>
 </footer>
 
 <script>
 (function(){
+  var header = document.getElementById('siteHeader');
   var toggle = document.getElementById('navToggle');
-  var menu = document.getElementById('mobileMenu');
-  var close = document.getElementById('mobileMenuClose');
-  if (!toggle || !menu || !close) return;
+  if (!header || !toggle) return;
+
+  function isOpen(){ return header.classList.contains('is-open'); }
 
   function openMenu(){
-    document.body.classList.add('menu-open');
-    menu.classList.add('open');
+    header.classList.add('is-open');
     toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'Close menu');
     document.body.style.overflow = 'hidden';
   }
   function closeMenu(){
-    menu.classList.remove('open');
+    header.classList.remove('is-open');
     toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open menu');
     document.body.style.overflow = '';
-    menu.addEventListener('transitionend', function onEnd(e){
-      if (e.propertyName === 'height'){
-        document.body.classList.remove('menu-open');
-        menu.removeEventListener('transitionend', onEnd);
-      }
-    });
+  }
+  function toggleMenu(){
+    if (isOpen()) closeMenu(); else openMenu();
   }
 
-  toggle.addEventListener('click', openMenu);
-  close.addEventListener('click', closeMenu);
-  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeMenu); });
+  toggle.addEventListener('click', toggleMenu);
+  header.querySelectorAll('.mobile-nav-links a').forEach(function(a){ a.addEventListener('click', closeMenu); });
   document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape') closeMenu();
+    if (e.key === 'Escape' && isOpen()) closeMenu();
   });
 })();
 </script>
