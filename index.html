@@ -40,12 +40,18 @@
   h5{ font-family:'Nunito Sans',sans-serif; font-weight:600; font-size:18px; line-height:25px; color:var(--ink); }
   .serif{ font-family:'Newsreader',serif; font-weight:300; }
   .eyebrow{ font-family:'Nunito Sans',sans-serif; font-size:14px; line-height:19px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); font-weight:400; }
-  :root{ --side-pad:56px; }
-  .wrap{ max-width:1320px; margin:0 auto; padding:0 var(--side-pad); }
+  /* Unified responsive margin scale — drives .wrap, header, and all main layout containers
+     so nothing can drift out of sync: 320 (large desktop) / 200 (small desktop) / 32 (tablet) / 16 (mobile) */
+  :root{ --side-pad:200px; }
+  /* --content-max caps the width of a row INSIDE the side-pad track (not the raw viewport),
+     so header and .wrap always land on identical edges no matter the viewport width — kept
+     byte-identical to about.html so margins match exactly between both pages. */
+  :root{ --content-max:1320px; }
+  .wrap{ padding:0 var(--side-pad); }
 
   /* ============ NAV — floating glass pill that expands into the mobile menu itself ============ */
   header{
-    position:fixed; top:20px; left:var(--side-pad); right:var(--side-pad); margin:0 auto; max-width:1320px; z-index:1000;
+    position:fixed; top:20px; left:var(--side-pad); right:var(--side-pad); margin:0 auto; max-width:var(--content-max); z-index:1000;
     height:auto; border-radius:999px; overflow:hidden;
     background:linear-gradient(165deg, rgba(255,255,255,0.78) 0%, rgba(255,255,255,0.4) 45%, rgba(255,255,255,0.55) 100%);
     border:1px solid rgba(24,24,24,0.12);
@@ -59,14 +65,15 @@
     display:flex; flex-direction:column;
     transition:
       top .5s cubic-bezier(.4,0,.2,1), left .5s cubic-bezier(.4,0,.2,1), right .5s cubic-bezier(.4,0,.2,1),
-      border-radius .5s cubic-bezier(.4,0,.2,1), height .5s cubic-bezier(.4,0,.2,1), max-width .5s cubic-bezier(.4,0,.2,1);
+      border-radius .5s cubic-bezier(.4,0,.2,1), height .5s cubic-bezier(.4,0,.2,1), max-width .5s cubic-bezier(.4,0,.2,1),
+      transform .45s cubic-bezier(.4,0,.2,1);
   }
+  header.header-hidden{ transform:translateY(calc(-100% - 40px)); }
   nav{ padding:14px 28px; display:flex; justify-content:space-between; align-items:center; flex-shrink:0; }
   /* ============ LARGE DESKTOP (1920px+): fixed 320px margins everywhere ============ */
   @media (min-width:1920px){
     :root{ --side-pad:320px; }
-    .wrap{ max-width:none; }
-    header{ max-width:none; }
+    .case-row .desc{ max-width:840px; }
   }
   .logo{ display:flex; align-items:center; }
   .nav-links{ display:flex; gap:4px; align-items:center; }
@@ -117,7 +124,10 @@
       border-radius:0; border-left:none; border-right:none; border-top:none;
       height:auto;
     }
-    header.is-open{ height:100vh; }
+    header.is-open{
+      height:100vh;
+      background:linear-gradient(165deg, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.94) 45%, rgba(255,255,255,0.97) 100%);
+    }
   }
 
   /* ============ HERO ============ */
@@ -163,36 +173,38 @@
   }
   .hero-cta svg{ width:16px; height:16px; }
 
-  /* Tablet: display text steps down to 32px (also covers the 680px mobile range below, which overrides further) */
+  /* Tablet: 32px margins + display text steps down (also covers the 680px mobile range below, which overrides further) */
   @media (max-width:1024px){
+    :root{ --side-pad:32px; }
     .text-display{ font-size:32px; }
   }
 
   /* ============ CASE STUDIES — 3 full-bleed rows ============ */
-  .work{ border-bottom:1px solid var(--line); }
+  .work{ border-bottom:1px solid var(--line); scroll-margin-top:0; }
   .case-row{
-    position:relative; display:grid; grid-template-columns:1fr 1fr; min-height:520px;
+    position:relative; display:grid; grid-template-columns:1fr 1fr; column-gap:72px; align-items:center;
     border-top:1px solid var(--line); overflow:hidden; transition:background-color .4s ease;
   }
   .case-row:hover{ background-color:var(--bg-warm); }
-  .case-row .info{ display:flex; flex-direction:column; justify-content:center; gap:16px; padding:64px var(--side-pad); }
+  .case-row:hover .visual{ background-color:var(--bg-warm); }
+  .case-row .info{ display:flex; flex-direction:column; justify-content:center; gap:16px; padding:32px 0 32px var(--side-pad); min-width:0; }
   .case-row .info h2{ margin:0; font-weight:400; }
   .case-row .tags-line{ font-size:14px; line-height:19px; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink); }
-  .case-row .desc{ color:var(--ink); max-width:548px; }
+  .case-row .desc{ color:var(--ink); max-width:680px; width:100%; }
   .case-row .visual{
-    position:relative; border-left:1px solid var(--line); background:var(--bg-warm); overflow:hidden;
-    display:flex; align-items:center; justify-content:center;
+    position:relative; border-left:1px solid var(--line); background:#fafafa; overflow:hidden;
+    display:flex; align-items:center; justify-content:center; min-width:0; padding-right:var(--side-pad);
   }
   .case-row .visual img{
-    width:100%; height:100%; object-fit:cover;
+    width:100%; height:auto; display:block; object-fit:contain;
     transition:transform .6s cubic-bezier(.2,.8,.2,1);
   }
   .case-row:hover .visual img{ transform:scale(1.035); }
 
   @media (max-width:860px){
     .case-row{ grid-template-columns:1fr; min-height:0; }
-    .case-row .info{ padding:40px var(--side-pad); }
-    .case-row .visual{ border-left:none; border-top:1px solid var(--line); min-height:320px; }
+    .case-row .info{ padding:40px var(--side-pad); gap:12px; }
+    .case-row .visual{ border-left:none; border-top:1px solid var(--line); padding-right:0; }
   }
 
   footer{ border-top:1px solid var(--line); height:80px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
@@ -213,7 +225,7 @@
     h3{ font-size:21px; line-height:26px; }
     h4{ font-size:18px; line-height:24px; }
 
-    .hero{ height:624px; min-height:624px; }
+    .hero{ width:100vw; height:100vh; min-height:100vh; }
     .hero-inner h1{ max-width:100%; }
     .text-display{ font-size:24px; }
 
@@ -222,8 +234,8 @@
     .case-row .info{ gap:8px; padding:32px var(--side-pad); }
     .case-row .info h2{ font-size:21px; line-height:26px; }
     .case-row .desc{ margin-top:0; }
-    .case-row .visual{ padding:24px; }
-    .case-row .visual img{ object-fit:contain; }
+    .case-row .visual{ min-height:0; height:auto; padding:0; margin:0 var(--side-pad) 16px; background-color:#fafafa; }
+    .case-row .visual img{ width:100%; height:auto; display:block; object-fit:contain; }
 
     footer{
       display:flex !important;
@@ -279,7 +291,7 @@
     <a href="live-employee-roster.html" class="case-row">
       <div class="info">
         <h2>Live Employee Roster</h2>
-        <div class="tags-line">FINTECH&nbsp;•&nbsp;PRODUCT INNOVATION&nbsp;•&nbsp;FEATURE WORK</div>
+        <div class="tags-line">FINTECH • PRODUCT&nbsp;INNOVATION • FEATURE&nbsp;WORK</div>
         <p class="desc">Transformed an outdated Excel roster into a live employee directory, streamlining how the buy side shares team information with the sell side.</p>
       </div>
       <div class="visual"><img src="images/Live%20Roster%20Homepage%20Image.png" alt="Live Employee Roster interface"></div>
@@ -288,7 +300,7 @@
     <a href="sirius-design-system.html" class="case-row">
       <div class="info">
         <h2>Sirius Design System</h2>
-        <div class="tags-line">DESIGN SYSTEM&nbsp;•&nbsp;ACCESSIBILITY&nbsp;•&nbsp;SCALABILITY</div>
+        <div class="tags-line">DESIGN&nbsp;SYSTEM • ACCESSIBILITY • SCALABILITY</div>
         <p class="desc">Drove $700K ARR by building a scalable, accessible design system that streamlined design–dev collaboration through Tailwind CSS and Storybook.</p>
       </div>
       <div class="visual"><img src="images/sirius%20design%20system%20case%20study%20cover.png" alt="Sirius Design System"></div>
@@ -297,7 +309,7 @@
     <a href="litespace-case-study.html" class="case-row">
       <div class="info">
         <h2>Hybrid Scheduling</h2>
-        <div class="tags-line">HR TECH&nbsp;•&nbsp;UX/UI DESIGN&nbsp;•&nbsp;WEBAPP</div>
+        <div class="tags-line">HR&nbsp;TECH • UX/UI&nbsp;DESIGN • WEBAPP</div>
         <p class="desc">Helping hybrid companies and workers be more productive and feel more connected with AI optimized schedules.</p>
       </div>
       <div class="visual"><img src="images/hybrid%20scheduling%20case%20study%20cover.png" alt="Hybrid Scheduling"></div>
@@ -346,6 +358,37 @@
   document.addEventListener('keydown', function(e){
     if (e.key === 'Escape' && isOpen()) closeMenu();
   });
+
+  /* Hide the nav on scroll-down, reveal it on scroll-up — never hide near the top or while the mobile menu is open. */
+  var lastScrollY = window.scrollY;
+  var hidden = false;
+  var suppressRevealUntil = 0;
+
+  function hideHeader(){
+    if (!hidden){ header.classList.add('header-hidden'); hidden = true; }
+  }
+
+  /* Jumping straight to the case studies via the hero CTA should land with the nav already
+     gone — smooth-scroll's final settling frame can otherwise report an unchanged/lower y and
+     get misread by the listener below as "scrolling up", flickering the nav back in right as it lands. */
+  var heroCta = document.querySelector('.hero-cta');
+  if (heroCta){
+    heroCta.addEventListener('click', function(){
+      hideHeader();
+      suppressRevealUntil = Date.now() + 1000;
+    });
+  }
+
+  window.addEventListener('scroll', function(){
+    var y = window.scrollY;
+    if (isOpen()){ lastScrollY = y; return; }
+    if (y > lastScrollY && y > 80){
+      hideHeader();
+    } else if (Date.now() > suppressRevealUntil){
+      if (hidden){ header.classList.remove('header-hidden'); hidden = false; }
+    }
+    lastScrollY = y;
+  }, { passive: true });
 })();
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
