@@ -40,12 +40,20 @@
   h5{ font-family:'Nunito Sans',sans-serif; font-weight:600; font-size:18px; line-height:25px; color:var(--ink); }
   .serif{ font-family:'Newsreader',serif; font-weight:300; }
   .eyebrow{ font-family:'Nunito Sans',sans-serif; font-size:14px; line-height:19px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); font-weight:400; }
-  :root{ --side-pad:56px; }
-  .wrap{ max-width:1320px; margin:0 auto; padding:0 var(--side-pad); }
+  /* Unified responsive margin scale — kept byte-identical to index.html so both pages share
+     EXACT margins at every breakpoint: 320 (large desktop) / 200 (small desktop) / 32 (tablet) / 16 (mobile) */
+  :root{ --side-pad:200px; }
+  /* --content-max caps the width of the row INSIDE the side-pad track (not the raw viewport),
+     so header and .wrap always land on identical edges no matter the viewport width. */
+  :root{ --content-max:1320px; }
+  .wrap{ padding:0 var(--side-pad); }
+  /* Scoped to the about-page content sections only — footer also uses .wrap but needs its
+     flex children (logo/copy) laid out edge-to-edge via justify-content, not capped+centered. */
+  .about-top > *, .about-mosaic > *{ max-width:var(--content-max); margin-left:auto; margin-right:auto; }
 
   /* ============ NAV — floating glass pill that expands into the mobile menu itself ============ */
   header{
-    position:fixed; top:20px; left:var(--side-pad); right:var(--side-pad); margin:0 auto; max-width:1320px; z-index:1000;
+    position:fixed; top:20px; left:var(--side-pad); right:var(--side-pad); margin:0 auto; max-width:var(--content-max); z-index:1000;
     height:auto; border-radius:999px; overflow:hidden;
     background:linear-gradient(165deg, rgba(255,255,255,0.78) 0%, rgba(255,255,255,0.4) 45%, rgba(255,255,255,0.55) 100%);
     border:1px solid rgba(24,24,24,0.12);
@@ -59,14 +67,14 @@
     display:flex; flex-direction:column;
     transition:
       top .5s cubic-bezier(.4,0,.2,1), left .5s cubic-bezier(.4,0,.2,1), right .5s cubic-bezier(.4,0,.2,1),
-      border-radius .5s cubic-bezier(.4,0,.2,1), height .5s cubic-bezier(.4,0,.2,1), max-width .5s cubic-bezier(.4,0,.2,1);
+      border-radius .5s cubic-bezier(.4,0,.2,1), height .5s cubic-bezier(.4,0,.2,1), max-width .5s cubic-bezier(.4,0,.2,1),
+      transform .45s cubic-bezier(.4,0,.2,1);
   }
+  header.header-hidden{ transform:translateY(calc(-100% - 40px)); }
   nav{ padding:14px 28px; display:flex; justify-content:space-between; align-items:center; flex-shrink:0; }
   /* ============ LARGE DESKTOP (1920px+): fixed 320px margins everywhere ============ */
   @media (min-width:1920px){
     :root{ --side-pad:320px; }
-    .wrap{ max-width:none; }
-    header{ max-width:none; }
   }
   .logo{ display:flex; align-items:center; }
   .nav-links{ display:flex; gap:4px; align-items:center; }
@@ -108,6 +116,7 @@
   }
 
   @media (max-width:1024px){
+    :root{ --side-pad:32px; }
     .nav-links{ display:none; }
     .nav-toggle{ display:flex; }
 
@@ -117,25 +126,30 @@
       border-radius:0; border-left:none; border-right:none; border-top:none;
       height:auto;
     }
-    header.is-open{ height:100vh; }
+    header.is-open{
+      height:100vh;
+      background:linear-gradient(165deg, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.94) 45%, rgba(255,255,255,0.97) 100%);
+    }
   }
 
-  /* ============ ABOUT TOP: heading + bio + featured photo ============ */
-  .about-top{ padding:160px 0 80px; }
-  .about-top h1{ margin-bottom:24px; }
-  .about-top h1 em{ font-style:italic; font-weight:300; color:inherit; }
-  .about-top-row{ display:flex; gap:56px; align-items:flex-start; flex-wrap:wrap; }
-  .about-bio{ flex:0 0 340px; display:flex; flex-direction:column; gap:16px; }
-  .about-bio p{ color:var(--ink-soft); }
-  .about-feature{ flex:1; display:flex; gap:40px; align-items:center; justify-content:center; flex-wrap:wrap; min-width:280px; }
-  .about-feature img{ width:290px; flex-shrink:0; }
-  .about-feature .caption{ max-width:260px; text-align:center; color:var(--ink-soft); }
+  /* ============ ABOUT TOP: headshot + bio copy ============ */
+  .about-top{ padding-top:160px; padding-bottom:80px; }
+  .about-hero{ display:flex; gap:48px; align-items:center; flex-wrap:wrap; }
+  .about-hero img{ flex:2 1 0; min-width:280px; max-width:500px; aspect-ratio:5/7; object-fit:cover; }
+  .about-hero-copy{ flex:3 1 0; min-width:280px; max-width:800px; display:flex; flex-direction:column; gap:16px; }
+  .about-hero-copy h1{ margin:0; }
+  .about-hero-copy h1 em{ font-style:italic; font-weight:300; color:inherit; }
+  .about-hero-copy p{ color:#181818; }
 
   /* ============ MOSAIC ============ */
-  .about-mosaic{ padding:0 0 160px; }
-  .mosaic-grid{ display:grid; grid-template-columns:repeat(3,1fr); column-gap:40px; row-gap:80px; max-width:1100px; margin:0 auto; }
-  .mosaic-grid img{ width:100%; aspect-ratio:3/4; object-fit:cover; filter:saturate(0.94); transition:transform 1s cubic-bezier(.2,.8,.2,1); }
-  .mosaic-grid a:hover img{ transform:scale(1.03); }
+  .about-mosaic{ padding-bottom:160px; }
+  .mosaic-grid{ display:grid; grid-template-columns:repeat(3,1fr); column-gap:24px; row-gap:24px; max-width:1100px; margin:0 auto; }
+  .mosaic-grid figure{ display:flex; flex-direction:column; gap:12px; }
+  .mosaic-grid img{ width:100%; aspect-ratio:5/7; object-fit:cover; filter:saturate(0.94); transition:transform 1s cubic-bezier(.2,.8,.2,1); }
+  .mosaic-grid figure:hover img{ transform:scale(1.03); }
+  .mosaic-grid figcaption{ display:flex; justify-content:space-between; align-items:baseline; gap:8px; }
+  .mosaic-grid h5{ font-weight:600; }
+  .mosaic-grid .mg-subtext{ font-size:14px; line-height:19px; color:var(--ink-faint); white-space:nowrap; }
   .mosaic-grid .mg-1{ grid-column:1; grid-row:1; }
   .mosaic-grid .mg-2{ grid-column:3; grid-row:1; }
   .mosaic-grid .mg-3{ grid-column:2; grid-row:2; }
@@ -143,7 +157,6 @@
   .mosaic-grid .mg-5{ grid-column:3; grid-row:3; }
 
   @media (max-width:860px){
-    .about-feature{ justify-content:flex-start; }
     .mosaic-grid{ grid-template-columns:repeat(2,1fr); column-gap:24px; row-gap:40px; }
     .mosaic-grid .mg-1,.mosaic-grid .mg-2,.mosaic-grid .mg-3,.mosaic-grid .mg-4,.mosaic-grid .mg-5{ grid-column:auto; grid-row:auto; }
   }
@@ -166,8 +179,10 @@
     h3{ font-size:21px; line-height:26px; }
     h4{ font-size:18px; line-height:24px; }
 
-    .about-top{ padding:140px 0 60px; }
-    .about-bio{ flex:1 1 100%; }
+    .about-top{ padding-top:140px; padding-bottom:60px; }
+    .about-hero{ flex-direction:column; }
+    .about-hero img{ flex:0 0 auto; width:200px; min-width:0; }
+    .about-hero-copy{ max-width:100%; }
 
     footer{
       display:flex !important;
@@ -210,26 +225,23 @@
 
 <main>
   <section class="about-top wrap">
-    <h1>Dana&nbsp;• <em>"Day-nuh"</em></h1>
-    <div class="about-top-row">
-      <div class="about-bio">
-        <p>I am a product designer with 3+ years of experience delivering end-to-end UX/UI solutions for enterprise SaaS and client-facing platforms. My design specialty lies in design systems, accessibility (WCAG 2.0 AA), and AI-enabled rapid prototyping to accelerate feature validation and stakeholder alignment.</p>
-        <p>I currently work full-time at BlueMatrix.</p>
-      </div>
-      <div class="about-feature">
-        <img src="images/linkedin-pfp.jpg" alt="Dana Lin">
-        <p class="caption">My design philosophy involves blending business strategies, accessibility, and a user-centric approach. With my experience in product design, I take the entire product lifecycle into consideration, ensuring a holistic perspective that enhances effective product development.</p>
+    <div class="about-hero">
+      <img src="images/linkedin-pfp.jpg" alt="Dana Lin">
+      <div class="about-hero-copy">
+        <h1>Dana&nbsp;• <em>"Day-nuh"</em></h1>
+        <p>I am a product designer with 4 years of experience delivering end-to-end UX/UI solutions for enterprise SaaS and client-facing platforms. My design specialty lies in design systems, accessibility (WCAG 2.0 AA), and AI-enabled rapid prototyping to accelerate feature validation and stakeholder alignment.</p>
+        <p>My design philosophy involves blending business strategies, accessibility, and a user-centric approach. I take the entire product lifecycle into consideration, ensuring a holistic perspective that enhances effective product development.</p>
       </div>
     </div>
   </section>
 
   <section class="about-mosaic wrap">
     <div class="mosaic-grid">
-      <a class="mg-1"><img src="images/japan.jpg" alt="Tokyo street"></a>
-      <a class="mg-2"><img src="images/Penny.png" alt="Penny"></a>
-      <a class="mg-3"><img src="images/smiling%20flowers.jpg" alt="In the garden"></a>
-      <a class="mg-4"><img src="images/iceland.jpg" alt="By the lake"></a>
-      <a class="mg-5"><img src="images/fuji.jpg" alt="Mt. Fuji"></a>
+      <figure class="mg-1"><img src="images/japan.jpg" alt="Tokyo street"><figcaption><h5>Placeholder</h5><span class="mg-subtext">Placeholder</span></figcaption></figure>
+      <figure class="mg-2"><img src="images/Penny.png" alt="Penny"><figcaption><h5>Placeholder</h5><span class="mg-subtext">Placeholder</span></figcaption></figure>
+      <figure class="mg-3"><img src="images/smiling%20flowers.jpg" alt="In the garden"><figcaption><h5>Placeholder</h5><span class="mg-subtext">Placeholder</span></figcaption></figure>
+      <figure class="mg-4"><img src="images/iceland.jpg" alt="By the lake"><figcaption><h5>Placeholder</h5><span class="mg-subtext">Placeholder</span></figcaption></figure>
+      <figure class="mg-5"><img src="images/fuji.jpg" alt="Mt. Fuji"><figcaption><h5>Placeholder</h5><span class="mg-subtext">Placeholder</span></figcaption></figure>
     </div>
   </section>
 </main>
@@ -275,6 +287,20 @@
   document.addEventListener('keydown', function(e){
     if (e.key === 'Escape' && isOpen()) closeMenu();
   });
+
+  /* Hide the nav on scroll-down, reveal it on scroll-up — never hide near the top or while the mobile menu is open. */
+  var lastScrollY = window.scrollY;
+  var hidden = false;
+  window.addEventListener('scroll', function(){
+    var y = window.scrollY;
+    if (isOpen()){ lastScrollY = y; return; }
+    if (y > lastScrollY && y > 80){
+      if (!hidden){ header.classList.add('header-hidden'); hidden = true; }
+    } else {
+      if (hidden){ header.classList.remove('header-hidden'); hidden = false; }
+    }
+    lastScrollY = y;
+  }, { passive: true });
 })();
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -282,10 +308,10 @@
 <script>
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.fromTo('.about-top h1', { y:18, opacity:0 }, { y:0, opacity:1, duration:1, ease:'power3.out', delay:0.15 });
-  gsap.fromTo('.about-bio p, .about-feature', { y:24, opacity:0 }, { y:0, opacity:1, duration:0.9, ease:'power3.out', stagger:0.1, delay:0.35 });
+  gsap.fromTo('.about-hero img', { y:18, opacity:0 }, { y:0, opacity:1, duration:1, ease:'power3.out', delay:0.15 });
+  gsap.fromTo('.about-hero-copy h1, .about-hero-copy p', { y:24, opacity:0 }, { y:0, opacity:1, duration:0.9, ease:'power3.out', stagger:0.1, delay:0.35 });
 
-  gsap.utils.toArray('.mosaic-grid a').forEach((tile,i)=>{
+  gsap.utils.toArray('.mosaic-grid figure').forEach((tile,i)=>{
     gsap.fromTo(tile, { y:30, opacity:0 }, {
       y:0, opacity:1, duration:0.9, ease:'power3.out', delay:i*0.06,
       scrollTrigger:{ trigger:tile, start:'top 90%' }
