@@ -116,7 +116,11 @@
   }
 
   @media (max-width:1024px){
-    :root{ --side-pad:32px; }
+    /* --header-h is the fixed header's actual rendered height at this breakpoint (measured, not
+       guessed) — --content-gap is the exact space requested above/below the main content.
+       Reuse this same --header-h / --content-gap pattern on future case-study pages so the
+       nav-to-content and content-to-footer spacing stays identical site-wide. */
+    :root{ --side-pad:32px; --header-h:59px; --content-gap:32px; }
     .nav-links{ display:none; }
     .nav-toggle{ display:flex; }
 
@@ -135,30 +139,59 @@
   /* ============ ABOUT TOP: headshot + bio copy ============ */
   .about-top{ padding-top:160px; padding-bottom:80px; }
   .about-hero{ display:flex; gap:48px; align-items:center; flex-wrap:wrap; }
-  .about-hero img{ flex:2 1 0; min-width:280px; max-width:500px; aspect-ratio:5/7; object-fit:cover; }
+  .about-hero-img{ position:relative; flex:2 1 0; min-width:280px; max-width:500px; }
+  .about-hero-img img{ display:block; width:100%; aspect-ratio:5/7; object-fit:cover; }
   .about-hero-copy{ flex:3 1 0; min-width:280px; max-width:800px; display:flex; flex-direction:column; gap:16px; }
   .about-hero-copy h1{ margin:0; }
   .about-hero-copy h1 em{ font-style:italic; font-weight:300; color:inherit; }
   .about-hero-copy p{ color:#181818; }
 
-  /* ============ MOSAIC ============ */
-  .about-mosaic{ padding-bottom:160px; }
-  .mosaic-grid{ display:grid; grid-template-columns:repeat(3,1fr); column-gap:24px; row-gap:24px; max-width:1100px; margin:0 auto; }
-  .mosaic-grid figure{ display:flex; flex-direction:column; gap:12px; }
-  .mosaic-grid img{ width:100%; aspect-ratio:5/7; object-fit:cover; filter:saturate(0.94); transition:transform 1s cubic-bezier(.2,.8,.2,1); }
-  .mosaic-grid figure:hover img{ transform:scale(1.03); }
-  .mosaic-grid figcaption{ display:flex; justify-content:space-between; align-items:baseline; gap:8px; }
-  .mosaic-grid h5{ font-weight:600; }
-  .mosaic-grid .mg-subtext{ font-size:14px; line-height:19px; color:var(--ink-faint); white-space:nowrap; }
-  .mosaic-grid .mg-1{ grid-column:1; grid-row:1; }
-  .mosaic-grid .mg-2{ grid-column:3; grid-row:1; }
-  .mosaic-grid .mg-3{ grid-column:2; grid-row:2; }
-  .mosaic-grid .mg-4{ grid-column:1; grid-row:3; }
-  .mosaic-grid .mg-5{ grid-column:3; grid-row:3; }
+  /* Glassmorphic bubbles clustered tightly at the photo's corners — backdrop-filter blurs
+     whatever part of the photo sits behind each bubble, with a soft playful side-to-side
+     sway (not the homepage's full free-floating jitter). About page only. */
+  .hero-bubble{
+    position:absolute; aspect-ratio:1/1; border-radius:50%; overflow:hidden;
+    background:url('images/bubble.svg') center/contain no-repeat;
+    backdrop-filter:blur(6px) saturate(160%);
+    -webkit-backdrop-filter:blur(6px) saturate(160%);
+    pointer-events:none; animation:hero-bubble-sway ease-in-out infinite;
+  }
+  /* Large bubble in each cluster is centered exactly on the image's corner point. */
+  .hero-bubble--tl1{ top:-22px; left:-22px; width:44px; animation-duration:5.5s; animation-delay:0s; }
+  .hero-bubble--tl2{ top:-10px; left:20px; width:30px; animation-duration:4.5s; animation-delay:-1.2s; }
+  .hero-bubble--tl3{ top:16px; left:-6px; width:18px; animation-duration:6s; animation-delay:-2.6s; }
+  .hero-bubble--br1{ bottom:-23px; right:-23px; width:46px; animation-duration:6.5s; animation-delay:-0.6s; }
+  .hero-bubble--br2{ bottom:-10px; right:20px; width:30px; animation-duration:5s; animation-delay:-3s; }
+  .hero-bubble--br3{ bottom:16px; right:-6px; width:18px; animation-duration:4.8s; animation-delay:-1.8s; }
+  @keyframes hero-bubble-sway{
+    0%, 100%{ transform:translate(0, 0); }
+    50%{ transform:translate(2px, -2px); }
+  }
 
+  /* ============ MOSAIC — uniform CSS grid. Every image card is the same size, same 3:4 frame,
+     no offsets, no masonry. No max-width of its own so it always spans the exact same edges as
+     the hero row and navbar (.about-mosaic > * handles that). ============ */
+  .about-mosaic{ padding-bottom:72px; }
+  .mosaic-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; width:100%; }
+  .mosaic-grid figure{ margin:0; }
+  /* Fixed-ratio frame that crops to fill — every card is identical, nothing taller/shorter than the rest. */
+  .mosaic-grid .mg-frame{ width:100%; aspect-ratio:3/4; overflow:hidden; }
+  .mosaic-grid .mg-frame img{ display:block; width:100%; height:100%; object-fit:cover; filter:saturate(0.94); }
+  .mosaic-grid figcaption{ display:flex; gap:6px; align-items:baseline; margin-top:8px; }
+  /* Design-system all-caps eyebrow sizing (14px / 0.12em letter-spacing / uppercase), color #181818. */
+  .mosaic-grid h5{ font-family:'Nunito Sans',sans-serif; font-size:14px; line-height:19px; letter-spacing:0.12em; text-transform:uppercase; font-weight:400; color:#181818; display:inline-flex; align-items:center; }
+  .mosaic-grid .mg-subtext{ font-family:'Nunito Sans',sans-serif; font-size:14px; line-height:19px; letter-spacing:0.12em; text-transform:uppercase; color:#181818; }
+  .mosaic-grid .mg-icon{ width:16px; height:16px; margin-left:4px; flex-shrink:0; }
+
+  @media (max-width:1024px){
+    .about-top{ padding-top:calc(var(--header-h) + var(--content-gap)); }
+    .about-mosaic{ padding-bottom:var(--content-gap); }
+  }
   @media (max-width:860px){
-    .mosaic-grid{ grid-template-columns:repeat(2,1fr); column-gap:24px; row-gap:40px; }
-    .mosaic-grid .mg-1,.mosaic-grid .mg-2,.mosaic-grid .mg-3,.mosaic-grid .mg-4,.mosaic-grid .mg-5{ grid-column:auto; grid-row:auto; }
+    .mosaic-grid{ grid-template-columns:repeat(2,1fr); gap:16px; }
+  }
+  @media (max-width:680px){
+    .mosaic-grid{ grid-template-columns:repeat(2,1fr); gap:8px; }
   }
 
   footer{ border-top:1px solid var(--line); height:80px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
@@ -170,7 +203,7 @@
 
   /* ============ MOBILE (single breakpoint — keeps all margins/type in sync) ============ */
   @media (max-width:680px){
-    :root{ --side-pad:16px; }
+    :root{ --side-pad:16px; --header-h:71px; --content-gap:24px; }
     nav{ padding:20px 24px; }
     .nav-links{ gap:20px; }
 
@@ -179,10 +212,17 @@
     h3{ font-size:21px; line-height:26px; }
     h4{ font-size:18px; line-height:24px; }
 
-    .about-top{ padding-top:140px; padding-bottom:60px; }
-    .about-hero{ flex-direction:column; }
-    .about-hero img{ flex:0 0 auto; width:200px; min-width:0; }
+    .about-top{ padding-top:calc(var(--header-h) + var(--content-gap) + 8px); padding-bottom:60px; }
+    .about-hero{ flex-direction:column; align-items:flex-start; }
+    /* Match the mosaic image cards on this screen size: full-width, same 3:4 frame ratio, instead of the small fixed 5:7 box. */
+    .about-hero-img{ flex:0 0 auto; width:100%; max-width:none; min-width:0; }
+    .about-hero-img img{ aspect-ratio:3/4; }
     .about-hero-copy{ max-width:100%; }
+
+    /* --side-pad is only 16px here, less than the large bubbles' usual 22-23px outward reach —
+       pull them in (overlapping the photo a bit more) so they never get cropped by the viewport edge. */
+    .hero-bubble--tl1{ left:-14px; }
+    .hero-bubble--br1{ right:-14px; }
 
     footer{
       display:flex !important;
@@ -206,7 +246,7 @@
     <div class="nav-links">
       <a href="index.html">Work</a>
       <a href="about.html" class="active">About</a>
-      <a href="resume.pdf">Resume</a>
+      <a href="https://drive.google.com/file/d/1Hln7uFMDxSpTHCbiuWrT9W6aeW--esqP/view?usp=drive_link" target="_blank" rel="noopener">Resume</a>
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
       <span class="hamburger-icon">
@@ -219,14 +259,22 @@
   <div class="mobile-nav-links">
     <a href="index.html">Work</a>
     <a href="about.html" class="active">About</a>
-    <a href="resume.pdf">Resume</a>
+    <a href="https://drive.google.com/file/d/1Hln7uFMDxSpTHCbiuWrT9W6aeW--esqP/view?usp=drive_link" target="_blank" rel="noopener">Resume</a>
   </div>
 </header>
 
 <main>
   <section class="about-top wrap">
     <div class="about-hero">
-      <img src="images/linkedin-pfp.jpg" alt="Dana Lin">
+      <div class="about-hero-img">
+        <img src="images/linkedin-pfp.jpg" alt="Dana Lin">
+        <span class="hero-bubble hero-bubble--tl1" aria-hidden="true"></span>
+        <span class="hero-bubble hero-bubble--tl2" aria-hidden="true"></span>
+        <span class="hero-bubble hero-bubble--tl3" aria-hidden="true"></span>
+        <span class="hero-bubble hero-bubble--br1" aria-hidden="true"></span>
+        <span class="hero-bubble hero-bubble--br2" aria-hidden="true"></span>
+        <span class="hero-bubble hero-bubble--br3" aria-hidden="true"></span>
+      </div>
       <div class="about-hero-copy">
         <h1>Dana&nbsp;• <em>"Day-nuh"</em></h1>
         <p>I am a product designer with 4 years of experience delivering end-to-end UX/UI solutions for enterprise SaaS and client-facing platforms. My design specialty lies in design systems, accessibility (WCAG 2.0 AA), and AI-enabled rapid prototyping to accelerate feature validation and stakeholder alignment.</p>
@@ -237,11 +285,12 @@
 
   <section class="about-mosaic wrap">
     <div class="mosaic-grid">
-      <figure class="mg-1"><img src="images/japan.jpg" alt="Tokyo street"><figcaption><h5>Placeholder</h5><span class="mg-subtext">Placeholder</span></figcaption></figure>
-      <figure class="mg-2"><img src="images/Penny.png" alt="Penny"><figcaption><h5>Placeholder</h5><span class="mg-subtext">Placeholder</span></figcaption></figure>
-      <figure class="mg-3"><img src="images/smiling%20flowers.jpg" alt="In the garden"><figcaption><h5>Placeholder</h5><span class="mg-subtext">Placeholder</span></figcaption></figure>
-      <figure class="mg-4"><img src="images/iceland.jpg" alt="By the lake"><figcaption><h5>Placeholder</h5><span class="mg-subtext">Placeholder</span></figcaption></figure>
-      <figure class="mg-5"><img src="images/fuji.jpg" alt="Mt. Fuji"><figcaption><h5>Placeholder</h5><span class="mg-subtext">Placeholder</span></figcaption></figure>
+      <figure><div class="mg-frame"><img src="images/taiwan%20cafe.jpg" alt="Taiwan cafe"></div><figcaption><h5>Taiwan</h5><span class="mg-subtext">2026</span></figcaption></figure>
+      <figure><div class="mg-frame"><img src="images/japan.jpg" alt="Tokyo street"></div><figcaption><h5>Tokyo</h5><span class="mg-subtext">2025</span></figcaption></figure>
+      <figure><div class="mg-frame"><img src="images/Penny.png" alt="Penny"></div><figcaption><h5>Penny<svg class="mg-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 12C3 10.067 4.567 8.5 6.5 8.5C7.7035 8.5 8.51959 8.9338 9.19914 9.61336C9.9255 10.3397 10.4851 11.3322 11.1258 12.4856L11.1595 12.5462C11.7605 13.6283 12.4431 14.8573 13.3866 15.8009C14.3946 16.8088 15.7035 17.5 17.5 17.5C20.5376 17.5 23 15.0376 23 12C23 8.96243 20.5376 6.5 17.5 6.5C15.8394 6.5 14.3508 7.2359 13.3423 8.39937C13.7887 9.05406 14.1574 9.70577 14.464 10.2574C15.0681 9.20718 16.2014 8.5 17.5 8.5C19.433 8.5 21 10.067 21 12C21 13.933 19.433 15.5 17.5 15.5C16.2965 15.5 15.4804 15.0662 14.8009 14.3866C14.0745 13.6603 13.5149 12.6678 12.8742 11.5144L12.8405 11.4538C12.2395 10.3717 11.5569 9.14265 10.6134 8.19914C9.60541 7.1912 8.2965 6.5 6.5 6.5C3.46243 6.5 1 8.96243 1 12C1 15.0376 3.46243 17.5 6.5 17.5C8.16056 17.5 9.64923 16.7641 10.6577 15.6006C10.2113 14.9459 9.84262 14.2942 9.53605 13.7426C8.93194 14.7928 7.79856 15.5 6.5 15.5C4.567 15.5 3 13.933 3 12Z" fill="#181818"/></svg></h5></figcaption></figure>
+      <figure><div class="mg-frame"><img src="images/fuji.jpg" alt="Mt. Fuji"></div><figcaption><h5>Mount Fuji</h5><span class="mg-subtext">2024</span></figcaption></figure>
+      <figure><div class="mg-frame"><img src="images/smiling%20flowers.jpg" alt="In the garden"></div><figcaption><h5>Flower Farm</h5><span class="mg-subtext">2024</span></figcaption></figure>
+      <figure><div class="mg-frame"><img src="images/iceland.jpg" alt="By the lake"></div><figcaption><h5>Iceland</h5><span class="mg-subtext">2024</span></figcaption></figure>
     </div>
   </section>
 </main>
@@ -308,7 +357,7 @@
 <script>
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.fromTo('.about-hero img', { y:18, opacity:0 }, { y:0, opacity:1, duration:1, ease:'power3.out', delay:0.15 });
+  gsap.fromTo('.about-hero-img', { y:18, opacity:0 }, { y:0, opacity:1, duration:1, ease:'power3.out', delay:0.15 });
   gsap.fromTo('.about-hero-copy h1, .about-hero-copy p', { y:24, opacity:0 }, { y:0, opacity:1, duration:0.9, ease:'power3.out', stagger:0.1, delay:0.35 });
 
   gsap.utils.toArray('.mosaic-grid figure').forEach((tile,i)=>{
