@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" data-wf-domain="www.dana-lin.com" data-wf-page="686363bae27768b42dabb96b" data-wf-site="686363bae27768b42dabb971">
+<head>
+<meta charset="utf-8"/>
+<link href="https://cdn.prod.website-files.com" rel="preconnect" crossorigin="anonymous"/>
+<title>Litespace — Dana Lin</title>
+<meta content="A workplace experience platform that helps employees working in hybrid and remote work structures feel connected and be more productive." name="description"/>
+<meta content="Litespace Case Study" property="og:title"/>
+<meta content="A workplace experience platform that helps employees working in hybrid and remote work structures feel connected and be more productive." property="og:description"/>
+<meta content="https://cdn.prod.website-files.com/64b84e3e1a0c8382ea336a58/65cf89d7627ee5fb89caab3d_Portfolio%20graph%20image.png" property="og:image"/>
+<meta content="Litespace Case Study" name="twitter:title"/>
+<meta content="A workplace experience platform that helps employees working in hybrid and remote work structures feel connected and be more productive." name="twitter:description"/>
+<meta content="https://cdn.prod.website-files.com/64b84e3e1a0c8382ea336a58/65cf89d7627ee5fb89caab3d_Portfolio%20graph%20image.png" name="twitter:image"/>
+<meta property="og:type" content="website"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="https://cdn.prod.website-files.com/686363bae27768b42dabb971/css/danalinuxui.webflow.shared.fe998b2ab.css" rel="stylesheet" type="text/css" integrity="sha384-/pmLKrBV9jPX7JYrHy/z6pL66DlQwJ6igfJ+Yy88+lzmeEQrSNEUXIp8OAtHuMee" crossorigin="anonymous"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous"/>
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
+<script type="text/javascript">WebFont.load({  google: {    families: ["Merriweather:300,300italic,400,400italic,700,700italic,900,900italic","Newsreader:300,400","Noto Sans:300,400,500,600,700","Nunito Sans:300,400,500,600,700,800","Raleway:300,400,500,600,700,800"]  }});</script>
+<script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
+<link href="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabbaa1_bubble%20favicon%2032.png" rel="shortcut icon" type="image/x-icon"/>
+<link href="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabbaa2_Bubble%20favicon.png" rel="apple-touch-icon"/>
+<style>
+  :root{
+    --black: #181818;
+    --white: #FFFFFF;
+    --bg: #FAFAFA;
+    --bg-warm: #F2F2F2;
+    --yellow: #FFF9CC;
+    --accent: #0A6BCC;
+    --ink: var(--black);
+    --ink-soft: rgba(24,24,24,0.72);
+    --ink-faint: rgba(24,24,24,0.45);
+    --line: rgba(24,24,24,0.08);
+    --line-hair: rgba(24,24,24,0.05);
+    --side-pad:200px;
+    --content-max:1320px;
+  }
+  .wrap{ padding:0 var(--side-pad); }
+
+  /* ============ NAV — identical floating glass pill used on index.html/about.html ============ */
+  header{
+    position:fixed; top:20px; left:var(--side-pad); right:var(--side-pad); margin:0 auto; max-width:var(--content-max); z-index:1000;
+    height:auto; border-radius:999px; overflow:hidden;
+    background:linear-gradient(165deg, rgba(255,255,255,0.78) 0%, rgba(255,255,255,0.4) 45%, rgba(255,255,255,0.55) 100%);
+    border:1px solid rgba(24,24,24,0.12);
+    box-shadow:
+      0 10px 30px rgba(24,24,24,0.10),
+      inset 0 1px 1px rgba(255,255,255,1),
+      inset 0 -10px 16px rgba(255,255,255,0.45),
+      inset 0 12px 18px -10px rgba(24,24,24,0.06);
+    backdrop-filter:blur(16px) saturate(140%);
+    -webkit-backdrop-filter:blur(16px) saturate(140%);
+    display:flex; flex-direction:column;
+    transition:
+      top .5s cubic-bezier(.4,0,.2,1), left .5s cubic-bezier(.4,0,.2,1), right .5s cubic-bezier(.4,0,.2,1),
+      border-radius .5s cubic-bezier(.4,0,.2,1), height .5s cubic-bezier(.4,0,.2,1), max-width .5s cubic-bezier(.4,0,.2,1),
+      transform .45s cubic-bezier(.4,0,.2,1);
+  }
+  header.header-hidden{ transform:translateY(calc(-100% - 40px)); }
+  header nav{ padding:14px 28px; display:flex; justify-content:space-between; align-items:center; flex-shrink:0; }
+  @media (min-width:1920px){
+    :root{ --side-pad:320px; }
+  }
+  header .logo{ display:flex; align-items:center; }
+  header .nav-links{ display:flex; gap:4px; align-items:center; }
+  header .nav-links a{ font-family:'Nunito Sans',sans-serif; font-size:16px; line-height:22px; font-weight:600; color:var(--ink-soft); padding:10px 18px; text-decoration:none; transition:color .3s; }
+  header .nav-links a:hover{ color:var(--ink); text-decoration:none; }
+  header .nav-links a.active{ color:#0A6BCC; font-weight:700; text-decoration:underline; text-underline-offset:4px; }
+
+  header .nav-toggle{ display:none; align-items:center; justify-content:center; background:none; border:none; padding:8px; color:var(--ink); cursor:pointer; }
+
+  .hamburger-icon{ position:relative; width:20px; height:14px; }
+  .hamburger-icon .bar{
+    position:absolute; left:0; width:100%; height:2px; border-radius:2px; background:currentColor;
+    transition:transform .35s cubic-bezier(.4,0,.2,1), opacity .35s ease, top .35s cubic-bezier(.4,0,.2,1);
+  }
+  .hamburger-icon .bar1{ top:0; }
+  .hamburger-icon .bar2{ top:6px; }
+  .hamburger-icon .bar3{ top:12px; }
+  header.is-open .hamburger-icon .bar1{ top:6px; transform:rotate(45deg); }
+  header.is-open .hamburger-icon .bar2{ opacity:0; }
+  header.is-open .hamburger-icon .bar3{ top:6px; transform:rotate(-45deg); }
+
+  header .mobile-nav-links{
+    flex:0 0 0; min-height:0; overflow:hidden;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:32px;
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity .25s ease;
+  }
+  header .mobile-nav-links a{
+    font-family:'Newsreader',serif; font-weight:300; font-size:24px; line-height:29px; letter-spacing:0; color:var(--ink); text-decoration:none;
+  }
+  header .mobile-nav-links a.active{ color:#0A6BCC; text-decoration:underline; text-underline-offset:4px; }
+  header.is-open .mobile-nav-links{
+    flex:1; overflow:visible;
+    opacity:1; visibility:visible; pointer-events:auto; transition:opacity .25s ease .25s;
+  }
+
+  @media (max-width:1024px){
+    :root{ --side-pad:32px; }
+    header .nav-links{ display:none; }
+    header .nav-toggle{ display:flex; }
+    header{
+      top:0; left:0; right:0; margin:0; max-width:none; width:100%;
+      border-radius:0; border-left:none; border-right:none; border-top:none;
+      height:auto;
+    }
+    header.is-open{
+      height:100vh;
+      background:linear-gradient(165deg, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.94) 45%, rgba(255,255,255,0.97) 100%);
+    }
+  }
+  @media (max-width:680px){
+    :root{ --side-pad:16px; }
+    header nav{ padding:20px 24px; }
+    header .nav-links{ gap:20px; }
+  }
+
+  /* Clear space for the fixed floating nav above the hero — Webflow's own .section-7.litespace
+     hero had no padding-top sized for a floating header. */
+  .section-7.litespace{ padding-top:160px !important; }
+  @media (max-width:1024px){ .section-7.litespace{ padding-top:91px !important; } }
+  @media (max-width:680px){ .section-7.litespace{ padding-top:103px !important; } }
+
+  /* ============ FOOTER — identical to index.html/about.html ============ */
+  footer{ border-top:1px solid var(--line); height:80px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+  footer .socials{ display:flex; gap:24px; }
+  footer .socials a{ display:inline-flex; align-items:center; color:var(--ink-soft); transition:color .3s; }
+  footer .socials a:hover{ color:var(--accent); }
+  footer .socials a svg{ width:20px; height:20px; }
+  footer .copy{ color:#181818; font-size:14px; line-height:19px; font-family:'Nunito Sans',sans-serif; }
+
+  @media (max-width:680px){
+    footer{
+      display:flex !important;
+      flex-direction:column !important;
+      align-items:flex-start !important;
+      justify-content:center !important;
+      padding-top:16px !important;
+      padding-bottom:16px !important;
+      gap:16px !important;
+      height:auto !important;
+      min-height:max-content !important;
+    }
+  }
+
+  /* ============ NEXT PROJECT CARD — soft frosted-glass surface, matching the nav pill / hero buttons ============ */
+  .div-block-38{
+    position:relative;
+    border:1.5px solid transparent;
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.55) 100%) padding-box,
+      linear-gradient(135deg, rgba(110,110,110,0.55) 0%, rgba(255,255,255,0.95) 30%, rgba(255,255,255,0.95) 70%, rgba(110,110,110,0.55) 100%) border-box;
+    box-shadow:
+      0 20px 44px rgba(24,24,24,0.09),
+      0 2px 8px rgba(24,24,24,0.05),
+      inset 1px 1px 1px rgba(255,255,255,0.9),
+      inset -1px -1px 1px rgba(24,24,24,0.03),
+      0 0 0 1.5px #b2b2b2;
+    backdrop-filter:blur(20px) saturate(150%);
+    -webkit-backdrop-filter:blur(20px) saturate(150%);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .div-block-38 .div-block-40{ border-radius:16px; overflow:hidden; aspect-ratio:2368/1200; }
+  .div-block-38 .image-43{ transition:none; object-fit:cover; width:100%; height:100%; border-radius:16px; }
+  /* 40/60-ish image-to-text split, desktop/tablet only — mobile keeps Webflow's own stacked layout.
+     Card is enlarged so the wide-aspect image renders taller instead of squashed into a short strip. */
+  @media (min-width:681px){
+    .link-block-4{ margin-left:80px; margin-right:80px; }
+    .div-block-38{ max-width:1100px; padding:64px 56px; }
+    .div-block-38 .div-block-40{ flex:0 0 46%; width:46%; max-width:46%; height:auto; margin-right:32px; }
+    .div-block-38 .div-block-39{ flex:1 1 0; }
+  }
+  .div-block-38:hover{
+    background-color:transparent;
+    transform:translateY(-2px);
+    box-shadow:
+      0 26px 56px rgba(24,24,24,0.13),
+      0 4px 12px rgba(24,24,24,0.07),
+      inset 1px 1px 1px rgba(255,255,255,0.95),
+      inset -1px -1px 1px rgba(24,24,24,0.04),
+      0 0 0 1.5px #b2b2b2;
+  }
+</style>
+</head>
+<body>
+<header id="siteHeader">
+  <nav>
+    <a href="index.html" class="logo"><img src="images/logo.svg" alt="Dana Lin" width="103" height="21"></a>
+    <div class="nav-links">
+      <a href="index.html">Work</a>
+      <a href="about.html">About</a>
+      <a href="https://drive.google.com/file/d/1Hln7uFMDxSpTHCbiuWrT9W6aeW--esqP/view?usp=drive_link" target="_blank" rel="noopener">Resume</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span class="hamburger-icon">
+        <span class="bar bar1"></span>
+        <span class="bar bar2"></span>
+        <span class="bar bar3"></span>
+      </span>
+    </button>
+  </nav>
+  <div class="mobile-nav-links">
+    <a href="index.html">Work</a>
+    <a href="about.html">About</a>
+    <a href="https://drive.google.com/file/d/1Hln7uFMDxSpTHCbiuWrT9W6aeW--esqP/view?usp=drive_link" target="_blank" rel="noopener">Resume</a>
+  </div>
+</header><section class="section-7 litespace"><div data-w-id="852604f0-e2c5-2a9e-0df8-1db00cf15d0c" style="opacity:0" class="w-layout-blockcontainer container-35 w-container"><div class="div-block-28"><h1 class="heading-6 litespace">Litespace</h1></div><div class="div-block-27 litespace-hero-image"><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabba69_Frame%201362790048.svg" loading="lazy" alt="" class="image-24 litespace-hero-image"/></div></div></section><section class="section-8"><div class="w-layout-blockcontainer container-17 w-container"><div class="div-block-29"><div class="text-block-6">Role</div><p class="paragraph-8">Competitive analysis, Product thinking, User research, Rebrand</p></div><div class="div-block-29 team"><div class="text-block-6">Team</div><p class="paragraph-9 team">1 product designer, 1 design intern, 1 project manager, 2 engineers</p></div><div class="div-block-29 team"><div class="text-block-6">Duration</div><p class="paragraph-9 duration">February 2023 (2 weeks)</p></div></div></section><section class="hero-heading-left-3 project-background-litespace"><div class="container-12 litespace-project-background"><div class="hero-wrapper"><div class="hero-split text"><h1 class="case-study-headings">Project background</h1><p class="case-study-paragraph project-background-realty-ai"><strong>Litespace is an HR software that connects employees in hybrid workplaces</strong> by improving employee engagement, strengthening corporate culture, and boosting productivity.</p></div><div class="hero-split"><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabba7f_cropped%20schedule.png" loading="lazy" sizes="(max-width: 1000px) 100vw, 1000px" srcset="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabba7f_cropped%2520schedule-p-500.png 500w, https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabba7f_cropped%2520schedule-p-800.png 800w, https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabba7f_cropped%20schedule.png 1000w" alt="" class="image-25"/></div></div></div></section><section class="hero-heading-left-3 my-role my-role-spacing"><div class="container-12 litespace-project-background"><div class="hero-wrapper"><div class="hero-split text"><h1 class="case-study-headings">My role</h1><p class="case-study-paragraph project-background-realty-ai"><strong>I was tasked with redesigning the schedule page of this Web App</strong> to incorporate new features and design an AI that will recommend optimal work schedules, and incorporate our new branding.</p></div><div class="hero-split"><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabba79_655c5ce4b088ff1474a3b81c_Hybrid-Scheduling-2-p-1080-removebg-preview.png" loading="lazy" sizes="(max-width: 597px) 100vw, 597px" srcset="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabba79_655c5ce4b088ff1474a3b81c_Hybrid-Scheduling-2-p-1080-removebg-preview-p-500.png 500w, https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabba79_655c5ce4b088ff1474a3b81c_Hybrid-Scheduling-2-p-1080-removebg-preview.png 597w" alt="" class="image-25"/></div></div></div></section><section class="hero-without-image"><div class="container-12"><div class="hero-wrapper-two"><h1 class="heading-8">Challenge</h1><p class="margin-bottom-24px-2">How might we help our users optimize their hybrid work schedules and assist the HR team in gaining visibility into office space utilization?</p></div></div></section><section class="section-9"><div class="w-layout-blockcontainer container-18 w-container"><div data-w-id="3114c578-f804-1eea-47bf-a8838580f611" style="opacity:0" class="litespace-mockup-image"><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabba6a_mockup%20litespace.png" loading="lazy" sizes="(max-width: 767px) 100vw, (max-width: 991px) 728px, 940px" srcset="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabba6a_mockup%2520litespace-p-500.png 500w, https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabba6a_mockup%2520litespace-p-800.png 800w, https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabba6a_mockup%2520litespace-p-1080.png 1080w, https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabba6a_mockup%2520litespace-p-1600.png 1600w, https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabba6a_mockup%2520litespace-p-2000.png 2000w, https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabba6a_mockup%2520litespace-p-2600.png 2600w, https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabba6a_mockup%20litespace.png 3078w" alt="" class="mockup-image"/></div></div></section><section class="case-study-banner"><div class="w-layout-blockcontainer container-19 w-container"><h1 class="heading-9">Research</h1></div></section><section class="section-11 sketches litespace-sketches litespace-competitive-analysis"><div class="w-layout-blockcontainer container-20 w-container"><div class="div-block-32"><h1 class="case-study-headings">Competitive analysis goals</h1><div class="three-points"><div class="point-with-icon"><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9d6_Presentation.png" loading="lazy" width="64" height="64" alt="" class="image-26"/><div class="case-study-18-bold"><strong class="case-study-paragraph-bold">User insights</strong></div><div class="case-study-paragraph safeshift-key-takeaways">Gain insights into the scheduling design patterns that users are already familiar with for hybrid work models.</div></div><div class="div-block-33"></div><div class="point-with-icon product-differentiation"><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9d7_Career.png" loading="lazy" width="64" height="64" alt="" class="image-26"/><div class="case-study-18-bold"><strong class="case-study-paragraph-bold">Product differentiation</strong></div><div class="case-study-paragraph safeshift-key-takeaways">Identify unique features and functionalities from gaps in competitor products.</div></div><div class="div-block-33"></div><div class="point-with-icon innovation"><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9d8_Idea.png" loading="lazy" width="64" height="64" alt="" class="image-26"/><div class="case-study-18-bold"><strong class="case-study-paragraph-bold">Innovation and improvement</strong></div><div class="case-study-paragraph safeshift-key-takeaways">Evaluate competitor offerings and identify areas where the previous schedule design can be improved.</div></div></div><div class="div-block-34 litespace"><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9d9_comp%20chart%20litespace.png" loading="lazy" sizes="(max-width: 767px) 100vw, (max-width: 991px) 728px, 940px" srcset="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9d9_comp%2520chart%2520litespace-p-500.png 500w, https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9d9_comp%2520chart%2520litespace-p-800.png 800w, https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9d9_comp%2520chart%2520litespace-p-1080.png 1080w, https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9d9_comp%2520chart%2520litespace-p-1600.png 1600w, https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9d9_comp%20chart%20litespace.png 1920w" alt="" class="image-52"/></div></div></div></section><section class="section-11 primary-research"><div class="w-layout-blockcontainer container-20 w-container"><div class="div-block-32"><h1 class="case-study-headings">User interview findings</h1><div class="three-points primary-research"><div class="point-with-icon"><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9da_Fired.png" loading="lazy" width="64" height="64" alt="" class="image-26"/><div class="case-study-paragraph safeshift-key-takeaways">“People say they will come to the office, but don’t actually show up. <strong>We wasted so much money </strong>on renting our office space.”</div></div><div class="div-block-33"></div><div class="point-with-icon product-differentiation"><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9db_Hired.png" loading="lazy" width="64" height="64" alt="" class="image-26"/><div class="case-study-paragraph safeshift-key-takeaways">“I like that <strong>I get a say in when I go into office</strong> and when I stay home.”</div></div><div class="div-block-33"></div><div class="point-with-icon innovation"><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9da_Fired.png" loading="lazy" width="64" height="64" alt="" class="image-26"/><div class="case-study-paragraph safeshift-key-takeaways">“I wish I could get <strong>more visibility on when everyone is working</strong>.”</div></div></div></div></div></section><section class="section-11 key-takeaways"><div class="w-layout-blockcontainer container-20 w-container"><div class="div-block-32"><h1 class="case-study-headings">Key insights</h1><div class="three-points primary-research"><div class="point-with-icon"><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9dc_Deadline.png" loading="lazy" width="64" height="64" alt="" class="image-26"/><div class="case-study-paragraph safeshift-key-takeaways">Users are accustomed to viewing a <strong>weekly work schedule.</strong></div></div><div class="div-block-33"></div><div class="point-with-icon product-differentiation"><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9dd_office%20space.png" loading="lazy" width="64" height="64" alt="" class="image-26"/><div class="case-study-paragraph safeshift-key-takeaways">HR team wants an accurate understanding of <strong>how employees are utilizing the office space.</strong></div></div><div class="div-block-33"></div><div class="point-with-icon innovation"><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9de_Team.png" loading="lazy" width="64" height="64" alt="" class="image-26"/><div class="case-study-paragraph safeshift-key-takeaways">Users want to connect with their coworkers and <strong>ensure in-office days are as productive as possible.</strong></div></div></div></div></div></section><section class="case-study-banner"><div class="w-layout-blockcontainer container-19 w-container"><h1 class="heading-9">Ideation</h1></div></section><section class="section-11 responsivneness mobile mobile-layout"><div class="w-layout-blockcontainer container-20 w-container"><div class="div-block-32 sketches"><h1 class="case-study-headings">Sketches</h1><p class="case-study-paragraph">Here I utilized my expertise in user-centric design and collaborated with stakeholders to ensure my concept sketches aligned with their go-to-market strategy, business goals, and were technically feasible.</p><a href="https://drive.google.com/file/d/1we01b1PvXVEC_0EiNqlR1loJMS1phxca/view?usp=drive_link" target="_blank" class="w-inline-block"><div class="div-block-34"><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9e0_Sketches%20Litespace.png" loading="lazy" alt=""/></div></a></div></div></section><section class="section-11 responsivneness mobile mobile-layout user-flow"><div class="w-layout-blockcontainer container-20 w-container"><div class="div-block-32 sketches"><h1 class="case-study-headings">User flow</h1><a href="https://drive.google.com/file/d/1SIE6NlnADBCYHo_ps1PnepH0_kAhCzCr/view?usp=sharing" target="_blank" class="w-inline-block"><div class="div-block-34"><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabba7e_Scheduling%20user%20flow.svg" loading="lazy" alt=""/></div></a></div></div></section><section class="case-study-banner"><div class="w-layout-blockcontainer container-19 w-container"><h1 class="heading-9">Challenges And Solutions</h1></div></section><section class="section-12 challenge litespace"><div class="w-layout-blockcontainer container-21 solution litespace-challenges-and-solutions w-container"><div class="div-block-35"><h1 class="challenges-and-solutions-heading">Challenge #1 reducing areas of user confusion</h1></div><div class="div-block-36"><p class="case-study-paragraph">During discussions with the sales team, we discovered that <strong class="bold-text">40% of users found it confusing to have the recommended schedule separated from their schedule and did not use it. </strong></p><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9e5_AI%20V2.png" loading="lazy" alt=""/></div></div><div class="w-layout-blockcontainer container-21 solution litespace-challenges-and-solutions w-container"><div class="div-block-37"><div class="div-block-35"><h1 class="challenges-and-solutions-heading">Solution #1 restructuring the layout</h1></div><p class="case-study-paragraph">By changing the layout of this page to display the AI recommended statuses beside the user&#x27;s set status, <strong>93% of users could easily understand and utilized the recommended statuses.</strong></p><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabba6c_recommended%20ai%20v2.png" loading="lazy" alt=""/></div></div></section><section class="section-12 challenge number-1"><div class="w-layout-blockcontainer container-21 solution litespace-challenges-and-solutions w-container"><div class="div-block-35"><h1 class="challenges-and-solutions-heading">Challenge #2 accurately documenting office attendance</h1></div><div class="div-block-36"><p class="case-study-paragraph">Stakeholder discussions with our customer success team alerted us that <strong>users reported discrepancies between</strong> <strong>the office attendance metric in our Reporting page and </strong><strong>actual office attendance.</strong></p><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9e6_Checkin%20v1.png" loading="lazy" alt=""/></div></div><div class="w-layout-blockcontainer container-21 solution litespace-challenges-and-solutions w-container"><div class="div-block-37"><div class="div-block-35"><h1 class="challenges-and-solutions-heading">Solution #2 addition of a check-in feature</h1></div><p class="case-study-paragraph">Requiring users to check-in upon arrival at the office allowed us to improve the accuracy of our Reporting analytics, increase compliance with covid-19 capacity restrictions, and provide cost-saving insights to our users&#x27; HR teams.</p><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabba7a_checkin%20final%20v%20highlighted.png" loading="lazy" alt=""/></div></div></section><section class="section-12 challenge number-3"><div class="w-layout-blockcontainer container-21 solution litespace-challenges-and-solutions w-container"><div class="div-block-35"><h1 class="challenges-and-solutions-heading">Challenge #3 optimize the information distribution</h1></div><div class="div-block-36"><p class="case-study-paragraph">During user testing we discovered that <strong>35% of users felt overwhelmed by the amount of information on this page.</strong></p><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9e8_layout%20v1.png" loading="lazy" alt="" class="image-42"/></div></div><div class="w-layout-blockcontainer container-21 solution litespace-challenges-and-solutions w-container"><div class="div-block-37"><div class="div-block-35"><h1 class="challenges-and-solutions-heading">Solution #3 revamp the page layout</h1></div><p class="case-study-paragraph">By focusing on enhancing design elements such as visual hierarchy, balance, and colour, <strong>78% of users found the information on this page to be well organized and easily digestible.</strong></p><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabba7b_Layout%20v2%20final.png" loading="lazy" alt=""/></div></div></section><section class="case-study-banner"><div class="w-layout-blockcontainer container-19 w-container"><h1 class="heading-9">Responsiveness</h1></div></section><section class="section-11"><div class="w-layout-blockcontainer container-20 w-container"><div class="div-block-32"><h1 class="case-study-headings">Mobile Design</h1><p class="case-study-paragraph">Once we finalized the high-fidelity screens, we created mobile screens to ensure a responsive design implementation. This <strong>helped the development team adapt the design across various devices</strong>.</p><a href="https://drive.google.com/file/d/1AhTRJnLdDS3lYg3Tijw-sT3zufwALvUY/view?usp=drive_link" target="_blank" class="w-inline-block"><div class="div-block-34"><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9eb_Mobile%20screens.png" loading="lazy" alt="" class="image-59"/></div></a></div></div></section><section class="case-study-banner"><div class="w-layout-blockcontainer container-19 w-container"><h1 class="heading-9">Final Product</h1></div></section><section class="section-11"><div class="w-layout-blockcontainer container-20 w-container"><div class="div-block-32"><h1 class="case-study-headings">Product Demonstration</h1><p class="case-study-paragraph"><strong>Please view the video below to see the scheduling page in action.</strong> This design now plays a pivotal role in the company&#x27;s journey to secure funding and propel growth.</p><div class="youtube-video"><div style="padding-top:56.17021276595745%" class="w-video w-embed"><iframe class="embedly-embed" src="//cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fwww.youtube.com%2Fembed%2F-MsY6WGCxeg%3Ffeature%3Doembed&display_name=YouTube&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D-MsY6WGCxeg&image=https%3A%2F%2Fi.ytimg.com%2Fvi%2F-MsY6WGCxeg%2Fhqdefault.jpg&key=96f1f04c5f4143bcb0f2e68c87d65feb&type=text%2Fhtml&schema=youtube" scrolling="no" allowfullscreen title="Litespace Scheduling Page Demo"></iframe></div></div></div></div></section><section class="case-study-banner"><div class="w-layout-blockcontainer container-19 w-container"><h1 class="heading-9">Reflection</h1></div></section><section class="section-11 key-takeaways takeaways"><div class="w-layout-blockcontainer container-20 w-container"><div class="div-block-32"><h1 class="case-study-headings">Key Takeaways</h1><div class="three-points"><div class="point-with-icon"><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9ec_Candidate.png" loading="lazy" width="64" height="64" alt="" class="image-26"/><div class="case-study-18-bold"><strong class="case-study-paragraph-bold">User-Centric Mindset</strong></div><div class="case-study-paragraph safeshift-key-takeaways">By empathizing with the pain points and preferences of the users, I was able to create a more intuitive and impactful design.</div></div><div class="div-block-33"></div><div class="point-with-icon product-differentiation"><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9ed_Discussion.png" loading="lazy" width="64" height="64" alt="" class="image-26"/><div class="case-study-18-bold"><strong class="case-study-paragraph-bold">Collaboration</strong></div><div class="case-study-paragraph safeshift-key-takeaways">This project emphasized the importance of a collaborative environment where seeking feedback and leveraging skills of team members created optimal solutions.</div></div><div class="div-block-33"></div><div class="point-with-icon innovation"><img src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/686363bae27768b42dabb9ee_Rating.png" loading="lazy" width="64" height="64" alt="" class="image-26"/><div class="case-study-18-bold"><strong class="case-study-paragraph-bold">Growth Mindset</strong></div><div class="case-study-paragraph safeshift-key-takeaways">I learned that embracing challenges as opportunities for improvement leads to better user experiences and more impactful solutions.</div></div></div></div></div></section><section class="section-13 roster-preview"><a href="live-employee-roster.html" class="link-block-4 w-inline-block"><div data-w-id="ffceaa4b-b46b-e7ab-95cb-3f7b839c4995" style="opacity:0" class="w-layout-blockcontainer container-23 w-container"><div class="div-block-38"><div class="div-block-40"><img src="images/Live%20Roster%20Homepage%20Image.png" loading="lazy" alt="" class="image-43"/></div><div class="div-block-39"><div class="text-block-8">Next project</div><h1 class="heading-10">Live Employee Roster</h1><p class="paragraph-11">Transformed an outdated Excel roster into a live employee directory, streamlining how the buy side shares team information with the sell side.</p></div></div></div></a></section><footer class="wrap">
+  <div class="socials">
+    <a href="https://www.linkedin.com/in/dana-lin22" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg width="20" height="20" viewBox="0 0 16 16" fill="none"><g clip-path="url(#footer-li-clip-litespace)"><path d="M5.99998 14.6666H9.99998C13.3333 14.6666 14.6666 13.3333 14.6666 9.99998V5.99998C14.6666 2.66665 13.3333 1.33331 9.99998 1.33331H5.99998C2.66665 1.33331 1.33331 2.66665 1.33331 5.99998V9.99998C1.33331 13.3333 2.66665 14.6666 5.99998 14.6666Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.29297 6.2088V12.2234H4.07812V6.2088H5.29297ZM9.48535 5.98029C10.9567 5.98029 12.1503 7.17295 12.1504 8.64435V12.2234H10.9355V8.64435C10.9355 7.8436 10.2861 7.19415 9.48535 7.19415C8.68475 7.19435 8.03621 7.84372 8.03613 8.64435V12.2234H6.82129V6.2088H8.03613V6.50372C8.43824 6.18359 8.92793 5.98037 9.48535 5.98029ZM4.68555 3.92267C5.14704 3.92267 5.52139 4.29713 5.52148 4.75861C5.52148 5.22016 5.14709 5.59454 4.68555 5.59454C4.22407 5.59445 3.84961 5.2201 3.84961 4.75861C3.8497 4.29719 4.22413 3.92276 4.68555 3.92267Z" fill="currentColor" stroke="currentColor" stroke-width="0.3"/></g><defs><clipPath id="footer-li-clip-litespace"><rect width="16" height="16" fill="white"/></clipPath></defs></svg>
+    </a>
+    <a href="mailto:danalin722@gmail.com" aria-label="Email">
+      <svg width="20" height="20" viewBox="0 0 16 16" fill="none"><path d="M11.3333 13.6666H4.66665C2.66665 13.6666 1.33331 12.6666 1.33331 10.3333V5.66665C1.33331 3.33331 2.66665 2.33331 4.66665 2.33331H11.3333C13.3333 2.33331 14.6666 3.33331 14.6666 5.66665V10.3333C14.6666 12.6666 13.3333 13.6666 11.3333 13.6666Z" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M11.3334 6L9.24669 7.66667C8.56002 8.21333 7.43335 8.21333 6.74669 7.66667L4.66669 6" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+  <div class="copy">© 2026 Dana Lin. All rights reserved.</div>
+</footer><script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=686363bae27768b42dabb971" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script><script src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/js/webflow.schunk.f2efb3c5440a81cf.js" type="text/javascript" integrity="sha384-VK02VJvMib7ytrF5M2joPWNtDQs366FZgEQ5B+Iwnjx0WBnwQXfootyziSYxdrmS" crossorigin="anonymous"></script><script src="https://cdn.prod.website-files.com/686363bae27768b42dabb971/js/webflow.11c9206a.f3e0bb8b622c1c7d.js" type="text/javascript" integrity="sha384-S1Nrs9YH2g/k/v5EbMpVg4uxkfp9FbbqA3v78I+iUDETrXG/9YCPzyvfc3BS44zu" crossorigin="anonymous"></script>
+<script>
+(function(){
+  var header = document.getElementById('siteHeader');
+  var toggle = document.getElementById('navToggle');
+  if (!header || !toggle) return;
+
+  function isOpen(){ return header.classList.contains('is-open'); }
+
+  function openMenu(){
+    header.classList.add('is-open');
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'Close menu');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu(){
+    header.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open menu');
+    document.body.style.overflow = '';
+  }
+  function toggleMenu(){
+    if (isOpen()) closeMenu(); else openMenu();
+  }
+
+  toggle.addEventListener('click', toggleMenu);
+  header.querySelectorAll('.mobile-nav-links a').forEach(function(a){ a.addEventListener('click', closeMenu); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && isOpen()) closeMenu();
+  });
+
+  var lastScrollY = window.scrollY;
+  var hidden = false;
+  window.addEventListener('scroll', function(){
+    var y = window.scrollY;
+    if (isOpen()){ lastScrollY = y; return; }
+    var delta = y - lastScrollY;
+    if (delta > 4 && y > 80){
+      if (!hidden){ header.classList.add('header-hidden'); hidden = true; }
+    } else if (delta < -4){
+      if (hidden){ header.classList.remove('header-hidden'); hidden = false; }
+    }
+    lastScrollY = y;
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>
